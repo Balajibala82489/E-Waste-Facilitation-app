@@ -1,0 +1,452 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #B5CB99;
+}
+#heading-para{
+    font-weight: bold;
+    width:30%;
+    padding-left: 35%;
+    color: #000;
+}
+#heading{
+    color:#000
+}
+header {
+    background-color: #004225;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+}/* styles.css */
+
+
+/* Style for the Home Section */
+#home {
+    position: relative;
+    text-align: center;
+    color: #a200ff;
+    padding: 100px 0; /* Adjust padding as needed */
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* Responsive styles for the home section */
+@media screen and (max-width: 768px) {
+    .search-container {
+        width: 80%;
+    }
+}
+
+/* Default styling for navigation links */
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 15px;
+}
+
+/* Hover effect for navigation links */
+nav a:hover {
+    background-color: #347AB7; /* Change the background color on hover */
+    color: #fff; /* Change the text color on hover */
+    border-radius: 5px; /* Add a border-radius for a rounded effect */
+    transition: background-color 0.3s, color 0.3s; /* Add a smooth transition effect */
+}
+
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+section {
+    padding: 2rem;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 2rem;
+}
+
+
+/* Style for the Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Style for Navbar links */
+.navbar-link {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 20px;
+}
+/*
+/* Style for the Dropdown */
+.dropdowns {
+    
+    display: inline-block;
+}
+
+/* Style for the Dropdown Content */
+.dropdowns-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdowns-content a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Show dropdown on hover */
+.dropdowns:hover .dropdowns-content {
+    display: block;
+}
+
+
+/* news section */
+
+.newss {
+    width:800px;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #cccccc;
+}
+.highlight{
+    font-size: medium;
+    font-weight: 200;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.para{
+    font-size: medium;
+    font-weight: 200;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.newss{
+    background-color: #2f7255;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+/* Links */
+.newss a {/* Link color */
+    text-decoration: none;
+    font-weight: medium;
+    width: 120px;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    padding:4px 8px;
+}
+
+.newss a:hover {
+   background-color: white;
+   color:black;
+   text-decoration: none;
+    
+}
+
+/* Form container */
+#aboutus {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Form fields */
+.form-group {
+    margin: 10px 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background-color: #347AB7;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Style for the Header */
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+/*header heading for e waste facility locator*/
+.side{
+   justify-content: left; 
+   padding-right: 40%;
+}
+
+/* Style for the Navbar */
+.navbar {
+    display: flex;
+    justify-content: right; /* Align menu bar to the right */
+    padding-right:5%;
+}
+
+/* Style for Navbar links */
+.navbar-link {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 20px;
+}
+
+/* Style for Navbar icons */
+.navbar-icon {
+    text-decoration: none;
+    color: #fff;
+    margin-right: 20px;
+}
+
+/* Style for icon images */
+.navbar-icon img {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+/* Style for the Menu Bar */
+.menu-bar {
+    display: flex;
+    align-items: center;
+}
+/*drop down*/
+/* Style for the Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#search-input {
+    padding: 10px;
+    border: solid;
+    width: 200px;
+}
+
+.dropdown-content {
+    display: inline-block;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid hsl(0, 0%, 80%);
+    max-height: 100px;
+    overflow-y: auto;
+    z-index: 1;
+    width: 20px;
+}
+
+.dropdown-content a {
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+    color: #333;
+}
+
+.dropdown-content a:hover {
+    background-color: #007BFF;
+    color: #fff;
+}
+
+/* Show dropdown and highlight on focus and hover */
+.dropdown:focus-within .dropdown-content,
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+#location-input{
+    width: 200px;
+}
+#submit{
+    margin-top:8px;
+}
+
+.container{
+    text-align: center;
+    margin:10px auto 10px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70;
+    margin-top: 5%;
+}
+       
+table{
+    display: table;
+    align-items: center;
+    margin: 20px auto 20px auto;
+    text-indent: initial;
+    border-spacing: 10px;
+    border-color: black;
+}
+.dropdown {
+    /* General styles for all dropdowns */
+    font-family: sans-serif;
+    font-size: 16px;
+    color: #000;
+    border: 1px solid #ccc;
+    margin-right: 20px;
+    height: 50px;
+    
+  }
+  
+.dropdown-content {
+    /* Styles for the dropdown options */
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+.dropdown-content a {
+    /* Styles for the dropdown links */
+    display: block;
+    padding: 10px;
+    color: #000;
+    text-decoration: none;
+  
+    /* Hover state */
+&:hover {
+      background-color: #eee;
+    }
+  }
+  
+.dropdown-content a.selected {
+    /* Styles for the selected dropdown option */
+    background-color: #ccc;
+
+  }
+#checkCreditsBtn{
+        background-color: rgb(2,137,255);
+        color:black;
+        border: none;
+        border-radius:20px;
+        height: 35px;
+        width: 120px;
+        font-weight: bold;
+        font-size: 15px;
+        cursor:pointer;
+        padding: 5px;
+        margin-left: 10px;
+      }
+#checkCreditsBtn:hover{
+        background-color: white;
+        color:rgb(2,137,255); 
+        border: solid;
+        border-color: rgb(2,137,255);
+ }
+ #creditTable {
+    margin-top: 20px;
+    display: none;
+    border: 1px solid #000;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+th,
+td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #000;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.slidedown{
+    position: flex;
+    z-index: 1;
+    padding: 20px;
+    border-radius: 5px;
+    color:#007BFF;
+    display: inline-block;
+    margin-bottom: 10px;
+    justify-content: center;
+    margin-bottom: 5%;
+    height:10px;
+}
+.btn-primary{
+    background-color: rgb(2,137,255);
+    color:black;
+    border: none;
+    border-radius:20px;
+    height: 40px;
+    width:100px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor:pointer;
+    padding: 5px;
+    margin-left: 10px;
+  }
+
+  .form-control{
+    flex-grow: 1; height: 40px; margin-left: 550px; 
+  }
+
+  .btn-back-to-top{
+    justify-content: right;
+    margin-left: 205%;
+  }
+
+  #aboutus{
+    background-color: #569e7f;
+    margin-bottom: 2.5%;
+
+  }
+
+  
+  
+  
+
+

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <title>E-Waste Management System</title>
+    <link href="https://fonts.googleapis.com/css?family=Istok+Web&display=swap" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+    <title>AITCMPNY</title>
+    <link rel="stylesheet" type="text/css"
+        href="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps.css" />
+    <link rel="shortcut icon" href="#">
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.18.0/maps/maps-web.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        const redMarker = new tt.Marker({ color: 'red' }); // Create a red marker
+    </script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <h3 class="side">E-Waste  Facility  Locator</h3>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#map">Locate</a></li>
+                <li><a href="#credit">Credit</a></li>
+                <li><a href="#news">News</a></li>
+                
+                <div class="dropdowns">
+                <a href="#" class="navbar-link" id="dropdown-stoggle">Login</a>
+                <div class="dropdowns-content" id="dropdowns-menu">
+                    <a href="#">User Login</a>
+                    <a href="#">Business Login</a>
+                </div>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="home">
+        <h1 id="heading-para">Let's manage your E-waste </h1>
+        <h2 id ="heading">Find the Nearest E-Waste Facilites Near you</h2>
+        <!--
+    <div class="background-image">
+        <img src="e-waste_image.jpeg" alt="e-waste-image">
+    </div>
+     -->
+    </section>
+
+     <!-- Navbar & Hero End -->
+     <div class="slidedown">
+        <div >
+            <input class="form-control" type="text"
+                placeholder="Enter your location city" id="location-input">
+            <button type="button" onclick="submitForm()"
+                class="btn-primary">Search
+            </button>
+        </div>
+    </div>
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                    <div class="position-relative h-100">
+                    
+                        
+                        <div id="map" style="width: 1100px; height: 600px;"></div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    var map = tt.map({
+                        key: "gdDQALLPzOIVyP5gTdrqyBkXJCPfhRu4",
+                        container: "map",
+                        center: center,
+                        zoom: 10
+                    })
+
+                    // Check if geolocation is available in the browser
+                    if ("geolocation" in navigator) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            var userLat = position.coords.latitude;
+                            var userLng = position.coords.longitude;
+
+                            map.setCenter([userLng, userLat]);
+
+                            // Add a marker at the user's location
+                            redMarker
+                                .setLngLat([userLng, userLat])
+                                .setPopup(new tt.Popup().setHTML(`<p>Latitude: ${userLat}<br>Longitude: ${userLng}</p>`))
+                                .addTo(map);
+                        });
+                    } else {
+                        alert("Enable location permission!!!");
+                        console.error("Geolocation is not available in this browser.");
+                    }
+
+                    // Function to add markers for all locations in the Excel file
+                    function addMarkersForLocations(data) {
+                        data.forEach((location) => {
+                            new tt.Marker()
+                                .setLngLat([location.longitude, location.latitude])
+                                .setPopup(new tt.Popup().setHTML(`<p><h4>${location.name}</h4>${location.email}<br>${location.contact}</p></p>`))
+                                .addTo(map);
+                        });
+                    }
+
+                    // Fetch and parse the Excel file
+                    fetch('location.xlsx')
+                        .then((response) => response.arrayBuffer())
+                        .then((arrayBuffer) => {
+                            const data = new Uint8Array(arrayBuffer);
+                            const workbook = XLSX.read(data, { type: 'array' });
+                            const sheetName = workbook.SheetNames[0];
+                            const sheet = workbook.Sheets[sheetName];
+                            const jsonData = XLSX.utils.sheet_to_json(sheet);
+                            addMarkersForLocations(jsonData);
+                        })
+                        .catch((error) => {
+                            console.error('Error fetching or parsing Excel file:', error);
+                        });
+                </script>
+                <script>
+
+                    function submitForm() {
+                        const location = locationInput.value;
+
+                        // Create the API request URL
+                        const apiUrl = `https://api.tomtom.com/search/2/geocode/${encodeURIComponent(location)}.json?key=${apiKey}`;
+
+                        // Make a GET request to TomTom API
+                        axios.get(apiUrl)
+                            .then(response => {
+                                const coordinates = response.data.results[0].position;
+                                const lat = coordinates.lat;
+                                const lng = coordinates.lon;
+
+                                console.log(`Latitude: ${lat}`);
+                                console.log(`Longitude: ${lng}`);
+
+                                // Update the map center to the user-entered coordinates
+                                map.setCenter([lng, lat]);
+
+                                // Add a marker at the user-entered location
+                                redMarker
+                                    .setLngLat([lng, lat])
+                                    .setPopup(new tt.Popup().setHTML(`<p>Latitude: ${lat}<br>Longitude: ${lng}</p>`))
+                                    .addTo(map);
+                            })
+                            .catch(error => {
+                                console.error('Error fetching data:', error);
+                            });
+                    }
+
+                    const locationInput = document.getElementById('location-input');
+                    let center = [4, 44.4]; // Default map center
+
+                    // Replace 'YOUR_API_KEY' with your actual TomTom API Key
+                    const apiKey = 'gdDQALLPzOIVyP5gTdrqyBkXJCPfhRu4'; // Replace with your API key
+
+                    var map = tt.map({
+                        key: apiKey,
+                        container: "map",
+                        center: center,
+                        zoom: 10
+                    });
+
+                </script>
+                <script type="text/javascript">
+                    var map = tt.map({
+                        key: "gdDQALLPzOIVyP5gTdrqyBkXJCPfhRu4",
+                        container: "map",
+                        center: center,
+                        zoom: 10
+                    })
+
+                    // Check if geolocation is available in the browser
+                    if ("geolocation" in navigator) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            var userLat = position.coords.latitude;
+                            var userLng = position.coords.longitude;
+
+                            map.setCenter([userLng, userLat]);
+
+                            // Add a marker at the user's location
+                            redMarker
+                                .setLngLat([userLng, userLat])
+                                .setPopup(new tt.Popup().setHTML(`<p>Latitude: ${userLat}<br>Longitude: ${userLng}</p>`))
+                                .addTo(map);
+                        });
+                    } else {
+                        alert("Enable location permission!!!");
+                        console.error("Geolocation is not available in this browser.");
+                    }
+
+                    // Function to add markers for all locations in the Excel file
+                    function addMarkersForLocations(data) {
+                        data.forEach((location) => {
+                            new tt.Marker()
+                                .setLngLat([location.longitude, location.latitude])
+                                .setPopup(new tt.Popup().setHTML(`<p><h4>${location.name}</h4>${location.email}<br>${location.contact}</p></p>`))
+                                .addTo(map);
+                        });
+                    }
+
+                    // Fetch and parse the Excel file
+                    fetch('location.xlsx')
+                        .then((response) => response.arrayBuffer())
+                        .then((arrayBuffer) => {
+                            const data = new Uint8Array(arrayBuffer);
+                            const workbook = XLSX.read(data, { type: 'array' });
+                            const sheetName = workbook.SheetNames[0];
+                            const sheet = workbook.Sheets[sheetName];
+                            const jsonData = XLSX.utils.sheet_to_json(sheet);
+                            addMarkersForLocations(jsonData);
+                        })
+                        .catch((error) => {
+                            console.error('Error fetching or parsing Excel file:', error);
+                        });
+                </script>
+                
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+    <!--credit section-->
+    <div class="container">
+        <div class="text-center wow fadeInUp">
+            <h1 class="mb-5">Calculate Your Valuable Credits</h1>
+        </div>
+        <div class="dropdownn">
+            <select id="deviceSelect" class="dropdown">
+                <option class="dropdown-content"  value="phone">Phone</option>
+                <option class="dropdown-content"  value="laptop">Laptop</option>
+            </select>
+            <select class="dropdown"  id="modelSelect"></select>
+
+            <div style="display : inline">   
+                <button id="checkCreditsBtn"> Check Credits</button>
+            </div>
+            <div id="creditTable" class="hidden">
+            </div>
+        </div>
+    </div>
+    <script>
+        // Define objects for models and credits
+        const models = {
+            phone: ["Motorola T189", "IPhone 4s", "Samsung Galaxy III", "Huawei C28000", "Nokia2220"],
+            laptop: ["Apple", "Hp", "Dell", "Fujitsu"]
+        };
+
+        const credits = {
+            Palladium: 120,
+            Gold: 100,
+            Silver: 10,
+            Copper: 5,
+            Magnesium: 3,
+            Aluminum: 2,
+            Iron: 1,
+            Zinc: 0.5
+        };
+
+        // Function to populate the model dropdown based on device selection
+        function populateModelDropdown() {
+            const deviceSelect = document.getElementById("deviceSelect");
+            const modelSelect = document.getElementById("modelSelect");
+            const selectedDevice = deviceSelect.value;
+
+            // Clear the existing options
+            modelSelect.innerHTML = "";
+
+            // Populate the model dropdown based on the selected device
+            models[selectedDevice].forEach(model => {
+                const option = document.createElement("option");
+                option.value = model;
+                option.textContent = model;
+                modelSelect.appendChild(option);
+            });
+        }
+        // Function to calculate and display credits
+        function calculateCredits() {
+            const modelSelect = document.getElementById("modelSelect");
+            const selectedModel = modelSelect.value;
+            const deviceSelect = document.getElementById("deviceSelect");
+            const selectedDevice = deviceSelect.value;
+
+            // Get the element weights for the selected model
+            const elementWeights = getElementWeights(selectedModel);
+
+            // Calculate total credits
+            let totalCredits = 0;
+            for (const element in elementWeights) {
+                const weight = elementWeights[element];
+                const creditPerGram = credits[element];
+                const elementCredits = weight * creditPerGram;
+                totalCredits += elementCredits;
+            }
+
+            // Create and populate the credit table
+            const creditTable = document.getElementById("creditTable");
+            creditTable.innerHTML = "";
+
+            const table = document.createElement("table");
+            table.classList.add("credits-table");
+            const headingRow = table.insertRow();
+            const headingCell = headingRow.insertCell(0);
+            headingCell.colSpan = 3;
+            headingCell.textContent = `${selectedModel} | ${selectedDevice}`;
+            headingCell.style.fontWeight = 'bold';
+
+            const headerRow = table.insertRow();    
+            const elementNameHeader = headerRow.insertCell(0);
+            elementNameHeader.textContent = "Element Name";
+            const weightHeader = headerRow.insertCell(1);
+            weightHeader.textContent = "Weight (grams)";
+            const creditsPerGramHeader = headerRow.insertCell(2);
+            creditsPerGramHeader.textContent = "Credits per gram";
+
+            for (const element in elementWeights) {
+                const weight = elementWeights[element];
+                const creditPerGram = credits[element];
+
+                const row = table.insertRow();
+                const elementNameCell = row.insertCell(0);
+                elementNameCell.textContent = element;
+                const weightCell = row.insertCell(1);
+                weightCell.textContent = weight;
+                const creditsPerGramCell = row.insertCell(2);
+                creditsPerGramCell.textContent = creditPerGram.toFixed(2);
+            }
+
+            const totalRow = table.insertRow();
+            const totalLabelCell = totalRow.insertCell(0);
+            totalLabelCell.colSpan = 2;
+            totalLabelCell.textContent = "Total Credits";
+            const totalCreditsCell = totalRow.insertCell(1);
+            totalCreditsCell.textContent = totalCredits.toFixed(2);
+
+            creditTable.appendChild(table);
+            creditTable.style.display = "block";
+        }
+
+        // Function to get element weights for a model (simulated data)
+        function getElementWeights(model) {
+            const simulatedData = {
+                "Motorola T189": {
+                    Magnesium: 0.88,
+                    Aluminum: 0.2558,
+                    Copper: 0.456,
+                    Iron: 0.1234,
+                    Zinc: 0.233,
+                    Gold: 0.012,
+                    Silver: 0.44,
+                    Palladium: 0.231
+                },
+                "IPhone 4s": {
+                    Magnesium: 0.8,
+                    Aluminum: 0.369,
+                    Copper: 0.384,
+                    Iron: 0.144,
+                    Zinc: 0.008,
+                    Gold: 0.034,
+                    Silver: 0.34,
+                    Palladium: 0.015
+                },
+                "Samsung Galaxy III": {
+                    Magnesium: 0.87,
+                    Aluminum: 0.22,
+                    Copper: 0.22,
+                    Iron: 0.18,
+                    Zinc: 0.005,
+                    Gold: 0.08,
+                    Silver: 0.45,
+                    Palladium: 0.02
+                },
+                "Huawei C28000": {
+                    Magnesium: 0.12,
+                    Aluminum: 0.088,
+                    Copper: 0.045,
+                    Iron: 0.09,
+                    Zinc: 0.0012,
+                    Gold: 0.2026,
+                    Silver: 3.541,
+                    Palladium: 0.0334
+                },
+                "Nokia2220": {
+                    Magnesium: 0.074,
+                    Aluminum: 0.01,
+                    Copper: 0.025,
+                    Iron: 0.014,
+                    Zinc: 0.3,
+                    Gold: 0.1964,
+                    Silver: 1.437,
+                    Palladium: 0.0539
+                },
+                "Apple": {
+                    Magnesium: 59,
+                    Aluminum: 103,
+                    Copper: 69,
+                    Iron: 121,
+                    Zinc: 0.7,
+                    Gold: 0.09,
+                    Silver: 0.3,
+                    Palladium: 0.02
+                },
+                "Hp": {
+                    Magnesium: 116,
+                    Aluminum: 143,
+                    Copper: 85,
+                    Iron: 141,
+                    Zinc: 1,
+                    Gold: 0.13,
+                    Silver: 0.5,
+                    Palladium: 0.03
+                },
+                "Dell": {
+                    Magnesium: 13,
+                    Aluminum: 12,
+                    Copper: 8,
+                    Iron: 19,
+                    Zinc: 0.1,
+                    Gold: 0.009,
+                    Silver: 0.03,
+                    Palladium: 0.001
+                },
+                "Fujitsu": {
+                    Magnesium: 17,
+                    Aluminum: 31,
+                    Copper: 21,
+                    Iron: 35,
+                    Zinc: 0.2,
+                    Gold: 0.02,
+                    Silver: 0.2,
+                    Palladium: 0.005
+                }
+                // Define element weights for other models here
+            };
+
+            return simulatedData[model];
+        }
+
+        // Event listeners
+        document.getElementById("deviceSelect").addEventListener("change", populateModelDropdown);
+        document.getElementById("checkCreditsBtn").addEventListener("click", calculateCredits);
+
+        // Initial population of model dropdown
+        populateModelDropdown();
+
+    </script>
+    
+</div>
+    <!--News and Articles section-->
+    <section id="news">
+        <h2>Trending News</h2>
+            <!-- news 1 -->
+            <div class="newss">
+                <p>Will India’s bet on new policy to tackle e-waste pay off?</p>
+                     <p><a href="https://www.businesstoday.in/magazine/deep-dive/story/will-indias-bet-on-new-policy-to-tackle-e-waste-pay-off-385530-2023-06-14" target="_blank">Read More</a></p>
+            </div>
+            <!-- news 2 -->
+            <div class="newss">
+                <p>Hindalco set to invest Rs 2,000 crore in copper, e-waste recycling</p>
+                    <p><a href="https://economictimes.indiatimes.com/industry/indl-goods/svs/metals-mining/hindalco-set-to-invest-rs-2000-crore-in-copper-e-waste-recycling/articleshow/102955677.cms" target="_blank">Read More</a></p>
+                </div>
+        
+            <!-- news 3 -->
+            <div class="newss">
+
+                <p>Mobile retail firm Celekt launches 'Mission E-waste'</p>
+                     <p><a href="https://economictimes.indiatimes.com/industry/cons-products/electronics/mobile-retail-firm-celekt-launches-mission-e-waste/articleshow/102651418.cms" target="_blank">Read More</a></p>
+            </div>
+    </section>
+    
+    <!--about us section-->
+
+    <section id="aboutus">
+        <h2>Contact</h2>
+            <form id="contact-form" method="post" action="send-email.php">
+                <div class="form-group">
+                    <label for="name" id="name">Name:</label><br>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" required>
+                </div>
+        
+                <div class="form-group">
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+        
+                <div class="form-group">
+                    <button type="submit">Send</button>
+                <!-- Back to Top -->
+            </div>
+            <a href="#" class="btn-back-to-top"><img src="OIP.jpg" alt="not " height="10%" width="10%"><i class="bi bi-arrow-up"></i></a>
+            </form>
+        </section>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+</body>
+</html>
+
+
+
+
+
