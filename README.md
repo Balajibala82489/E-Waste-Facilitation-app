@@ -1,1 +1,1 @@
-It is an Web application that find the location and how much credits will be given to each phone models you can search and contact form. In the maps you can see the nearby e waste facilitation centre
+It is an Basic Web application designed for E-Waste Management to find the location of nearest e-waste handlers and how much credits will be given to each phone models. You can search and find them manually as well. In the maps you can see the nearby e waste facilitation centre. and Contact form at the end. 
