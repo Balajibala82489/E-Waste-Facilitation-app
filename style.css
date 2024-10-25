@@ -1,3 +1,34 @@
+/* Center buttons and form elements */
+button[type="submit"], .btn-primary, #checkCreditsBtn {
+    margin: 10px auto;
+    width: 80%;
+    max-width: 200px; /* Limit max width for large screens */
+    text-align: center;
+    display: block;
+}
+
+#aboutus, .form-group {
+    width: 90%;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+/* Ensure table responsiveness */
+table {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    margin: 10px auto;
+    display: block;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+}
+
+
 /* Centering container elements and text */
 .container {
     display: flex;
