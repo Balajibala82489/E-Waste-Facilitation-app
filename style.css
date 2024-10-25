@@ -1,3 +1,23 @@
+/* Header styling adjustments */
+header {
+    padding: 1rem;
+    text-align: center;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column; /* Stack items vertically on mobile */
+    align-items: center;
+}
+
+/* Adjust Navbar links for mobile */
+.navbar-link, .navbar-icon {
+    margin: 5px 0;
+    width: 100%;
+    text-align: center;
+}
+
+
 /* Center buttons and form elements */
 button[type="submit"], .btn-primary, #checkCreditsBtn {
     margin: 10px auto;
