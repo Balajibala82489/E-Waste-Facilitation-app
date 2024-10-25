@@ -37,10 +37,10 @@ $('.back-to-top').click(function () {
     return false;
 });
 
-window.addEventListener('scroll', function() {
-    var header=this.document.querySelector("header");
-    header.classList.toggle("sticky", window.scrollY>0);
-})
+$(window).scroll(function() {
+    $("header").toggleClass("sticky", $(window).scrollTop() > 0);
+});
+
 $(window).on("load resize", function() {
     if (window.matchMedia("(min-width: 992px)").matches) {
         $dropdown.hover(
