@@ -1,3 +1,65 @@
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+
+    header {
+        padding: 0.5rem;
+    }
+
+    #heading-para {
+        width: 100%;
+        padding-left: 0;
+        font-size: 1.1em;
+    }
+
+    .navbar {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .navbar ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar ul li {
+        margin: 10px 0;
+    }
+
+    #home {
+        padding: 50px 0;
+        font-size: 1.2em;
+    }
+
+    #aboutus, .newss {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .dropdown-content {
+        width: 100%;
+    }
+
+    .container {
+        margin-top: 10%;
+        width: 90%;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    .form-control, #checkCreditsBtn, .btn-primary {
+        width: 80%;
+        margin: 10px auto;
+    }
+}
+
+
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
