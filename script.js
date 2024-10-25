@@ -64,27 +64,7 @@ $(window).on("load resize", function() {
     }
 });
 
-$(window).on("load resize", function() {
-    if (window.matchMedia("(min-width: 992px)").matches) {
-        $dropdown.hover(
-            function() {
-                $(this).addClass(showClass);
-                $(this).find($dropdownToggle).attr("aria-expanded", "true");
-                $(this).find($dropdownMenu).addClass(showClass);
-            },
-            function() {
-                $(this).removeClass(showClass);
-                $(this).find($dropdownToggle).attr("aria-expanded", "false");
-                $(this).find($dropdownMenu).removeClass(showClass);
-            }
-        );
-    } else {
-        $dropdown.off("mouseenter mouseleave").click(function() {
-            $(this).toggleClass(showClass);
-            $(this).find($dropdownMenu).toggleClass(showClass);
-        });
-    }
-});
+
 
 
 
