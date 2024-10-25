@@ -1,3 +1,38 @@
+/* Centering container elements and text */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 90%;
+    max-width: 600px; /* Limit width for larger screens */
+    margin: 0 auto;
+}
+
+.header, #home, #aboutus, .newss {
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Navbar alignment */
+.navbar ul {
+    display: flex;
+    flex-direction: column; /* Stack links vertically on small screens */
+    align-items: center;
+    padding: 0;
+}
+
+/* Responsive styling for dropdowns */
+.dropdown {
+    margin: 0 auto;
+    text-align: center;
+}
+
+
 @media (max-width: 768px) {
     body {
         font-size: 14px;
